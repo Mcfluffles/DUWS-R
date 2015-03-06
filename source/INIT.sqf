@@ -163,7 +163,7 @@ player allowDamage false;
 #include "dialog\supports_init.hpp"
 #include "dialog\squad_number_init.hpp"
 	
-execVM "misc\gps_marker.sqf";
+// "misc\gps_marker.sqf";
 if (!isMultiplayer) then {
 	getsize_script = [player] execVM "mapsize.sqf";
 };	
@@ -213,7 +213,7 @@ if (isMultiplayer) then {
         DUWS_host_start = false;
         publicVariable "DUWS_host_start";
         waitUntil {time > 0.1};
-        getsize_script = [player] execVM "mapsize.sqf";
+        getsize_script = execVM "mapsize.sqf";
         DUWS_host_start = true;
         publicVariable "DUWS_host_start";
 
