@@ -52,19 +52,25 @@ if (isNil "commandpointsblu1") then { commandpointsblu1 = 20; };
 if (isNil "blufor_ap") then {blufor_ap = 0;};
 opfor_ap = 0; 
 
-///////////////////////////////////////////////////////
+
 // initialise variables
-//////////////////////////////////////////////////////
-// MOST OF THE VALUES ARE BEING OVERWRITTEN BY PLAYER INPUT AT THE BEGINNING
-//////////////////////////////////////////////////////
- 
-/////////////////////////////////////////////////////////////
 debugmode = false;  // Debug mode, kind of obsolete
-/// ------------- VALUES UNDER THIS ARE OVERWRITTEN
+
+
+
+
+
+/// ------------- Edit these to set your params -------------///
+
 zones_number = 9; // Number of capturables zones to create (when zones are created randomly)
 zones_spacing = 1200; // minimum space between 2 zones (in meters) // SOON OBSOLETE
 zones_max_radius = 1000;   // Determine the maximum radius a generated zone can have   
 zones_min_radius = 200; // Determine the minium radius a generated zone can have. SHOULD NOT BE UNDER 200.
+weather_type = "tropical"; //Choose your weather type - "tropical" - "arid" - "temperate" - "temperate_cold" - "mediterranean" 
+
+
+
+
 
 ///////////////////////////////////////////////////////
 // This mission will have a harder time generating stuff if a lot of the terrain of the island is sloped, meaning that valid locations
@@ -75,7 +81,6 @@ zones_min_radius = 200; // Determine the minium radius a generated zone can have
 QRF_test = compile preprocessFile "WARCOM\WARCOM_opf_qrf.sqf";
 persistent_stat_script_init = [] execVM "persistent\persistent_stats_init.sqf";
 waitUntil {scriptDone persistent_stat_script_init};
-execvm "dynamic_music\dyn_music_init.sqf";
 
 // nber of missions succes(!!dont touch!!)
 missions_success = 0;
@@ -218,7 +223,7 @@ if (isMultiplayer) then {
 	}; 
 };
 
-if (isServer) then {
+/*if (isServer) then {
     _null = [] execVM "dialog\startup\hq_placement\placement.sqf";
     waitUntil {chosen_hq_placement};	
 
@@ -228,6 +233,12 @@ if (isServer) then {
         waitUntil {scriptDone hq_create};	
     };
 };
+*/
+
+//Create HQ Without using dialog box, selects a random position
+hq_create = [20, 0.015] execVM "initHQ\locatorHQ.sqf";
+waitUntil {scriptDone hq_create};
+
 
 /*
 //////// DEBUG LOOP /////////////
@@ -261,8 +272,8 @@ if (!isServer) then {
     waitUntil {HQ_pos_found_generated && time > 0.1};
     player setpos [(getpos hq_blu1 select 0),(getpos hq_blu1 select 1)+10];
     _drawicon = [] execVM "inithq\drawIcon.sqf";
-    hintsilent "Waiting for the host to select the campaign parameters...";	
-    waitUntil {chosen_settings};	
+    //hintsilent "Waiting for the host to select the campaign parameters...";	
+   // waitUntil {chosen_settings};	
     [hq_blu1] execVM "initHQ\HQaddactions.sqf";
     sleep 1;
     player setdamage 0;	

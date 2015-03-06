@@ -27,7 +27,6 @@ disabledAI = 1;
 #include "dialog\operative\identities.hpp"
 #include "dialog\operative\operative.hpp"
 #include "params.hpp"
-#include "duws_revive\gui\duws_revive.hpp"
 
 // VAS INIT BEGIN --  ALSO TAW VIEWDISTANCE
 #include "taw_vd\dialog.hpp"       

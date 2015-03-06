@@ -72,6 +72,7 @@ sleep 0.1;
 HQ_pos_found_generated = true;
 publicVariable "HQ_pos_found_generated";
 
+/*
 if (!zones_manually_placed) then {
 
     // SHOW THE STARTUP MENU
@@ -97,6 +98,14 @@ if (!zones_manually_placed) then {
         _zones_create = [50, 0.2] execVM "initZones\locatorZonesV2.sqf";
     };
 };
+*/
+
+_weather_script = [] execVM "dialog\startup\weather.sqf"; //Do the weather
+
+// CALL ZONES GENERATION
+waitUntil {!isNil {getsize_script}};  // WAIT UNTIL THE MAPSIZE SCRIPT IS DONE
+_zones_create = [50, 0.2] execVM "initZones\locatorZonesV1.sqf"; //create the zones using vars set in init
+
 
 player allowDamage true;
 if (debugmode) exitWith {};
